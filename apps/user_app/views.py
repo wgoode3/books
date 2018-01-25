@@ -15,6 +15,8 @@ def register(request):
     )
     if response["valid"]:
         messages.add_message(request, messages.SUCCESS, 'Welcome to the site!')
+        request.session["user_id"] = response["user"].id
+        return redirect("/books")
     else:
         for error_message in response["errors"]:
             messages.add_message(request, messages.ERROR, error_message)
@@ -29,8 +31,14 @@ def login(request):
 
     if response["valid"]:
         messages.add_message(request, messages.SUCCESS, 'Welcome to the site!')
+        request.session["user_id"] = response["user"].id
+        return redirect("/books")
     else:
         for error_message in response["errors"]:
             messages.add_message(request, messages.ERROR, error_message)
 
+    return redirect("/")
+
+def logout(request):
+    request.session.clear()
     return redirect("/")
