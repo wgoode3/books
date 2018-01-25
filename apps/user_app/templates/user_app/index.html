@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .error {
+            padding: 10px;
+            background-color: red;
+            color: white;
+        }
+        .success {
+            padding: 10px;
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Books</h1>
+
+    <fieldset>
+        <legend>Register</legend>
+        <form action="/register" method="post">
+            {% csrf_token %}
+            <input name="name" placeholder="name" type="text"><br>
+            <input name="alias" placeholder="alias" type="text"><br>
+            <input name="email" placeholder="email" type="text"><br>
+            <input name="password" placeholder="password" type="password"><br>
+            <input name="confirm_password" placeholder="confirm password" type="password"><br>
+            <input type="submit" value="Register">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Login</legend>
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <input name="email" placeholder="email" type="text"><br>
+            <input name="password" placeholder="password" type="password"><br>
+            <input type="submit" value="Login">
+        </form>
+    </fieldset>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>
